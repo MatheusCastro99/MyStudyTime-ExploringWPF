@@ -10,9 +10,8 @@
                             Background="#333540">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
-                            <TextBox Margin="1"
+                            <TextBox Margin="15, 0, 0, 0"
                                      VerticalAlignment="Center"
-                                     
                                      Text="{TemplateBinding Text}"
                                      BorderThickness="0"
                                      Background="Transparent"

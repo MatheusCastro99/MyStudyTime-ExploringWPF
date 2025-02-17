@@ -42,13 +42,16 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding HomeViewComand}"/>
                 
                 <RadioButton Content="Subject"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SubjectViewComand}"/>
                 
                 <RadioButton Content="Quiz Me"
                              Height="50"
@@ -64,11 +67,21 @@
             </StackPanel>
 
             <TextBox Width="350"
-                     Height="40"
+                     Height="37"
                      VerticalContentAlignment="Center"
-                     HorizontalContentAlignment="Center"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Left"
+                     Margin="10, 0, 0, 5"
                      Grid.Column="1"
                      Style="{StaticResource SearchBoxTheme}"/>
+
+            <Button Grid.Column="1"
+                    Style="{StaticResource CloseMinMaxButtonTheme}"
+                    HorizontalAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding CloseViewComand}">
+            </Button>
+
             <ContentControl Grid.Row="1" Grid.Column="1"
                             Margin="10"
                             Content="{Binding CurrentView}">

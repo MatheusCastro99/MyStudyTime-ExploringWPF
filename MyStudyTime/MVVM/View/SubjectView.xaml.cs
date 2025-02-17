@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MyStudyTime.MVVM.ViewModel;
 
-namespace MyStudyTime
+namespace MyStudyTime.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SubjectView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SubjectView : UserControl
     {
-        public MainWindow()
+        public SubjectView()
         {
             InitializeComponent();
-            var viewModel = (MainViewModel)DataContext;
-            viewModel.RequestClose += (s, e) => this.Close();
         }
     }
 }
