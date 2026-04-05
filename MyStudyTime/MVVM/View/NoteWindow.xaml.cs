@@ -23,5 +23,18 @@ namespace MyStudyTime.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                textBox.Height = Double.NaN; // Reset height to auto
+                if (!double.IsNaN(textBox.Width))
+                {
+                    textBox.Measure(new Size(textBox.Width, Double.PositiveInfinity));
+                    textBox.Height = textBox.DesiredSize.Height;
+                }
+            }
+        }
     }
 }

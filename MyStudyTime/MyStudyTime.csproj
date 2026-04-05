@@ -118,11 +118,21 @@
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SubjectViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\NoteWindowViewModel.cs" />
+    <Compile Include="MVVM\Model\Subject.cs" />
+    <Compile Include="MVVM\Model\Note.cs" />
+    <Compile Include="MVVM\Model\FlashCard.cs" />
+    <Compile Include="MVVM\Model\StudyGoal.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\XmlDataService.cs" />
     <Compile Include="MVVM\View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\SubjectView.xaml.cs">
       <DependentUpon>SubjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\NoteWindow.xaml.cs">
+      <DependentUpon>NoteWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -141,6 +151,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Font Awesome 6 Free-Solid-900.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -150,7 +161,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Fonts\" />
     <Folder Include="MVVM\Model\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MyStudyTime.MVVM.ViewModel;
+using MyStudyTime.Services;
 
 namespace MyStudyTime
 {
@@ -24,8 +25,18 @@ namespace MyStudyTime
         public MainWindow()
         {
             InitializeComponent();
-            var viewModel = (MainViewModel)DataContext;
-            viewModel.RequestClose += (s, e) => this.Close();
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+
+            // Initialize services here when window is fully loaded
+            IDataService dataService = new XmlDataService();
+            MainViewModel viewModel = new MainViewModel(dataService);
+            this.DataContext = viewModel;
+
+            viewModel.RequestClose += (s, ev) => this.Close();
         }
     }
 }

@@ -12,10 +12,6 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
-
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
         
     <Border Background="#272537"
             CornerRadius="25">
@@ -44,14 +40,14 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding HomeViewComand}"/>
+                             Command="{Binding HomeViewCommand}"/>
                 
                 <RadioButton Content="Subject"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding SubjectViewComand}"/>
+                             Command="{Binding SubjectViewCommand}"/>
                 
                 <RadioButton Content="Quiz Me"
                              Height="50"
@@ -79,7 +75,7 @@
                     Style="{StaticResource CloseMinMaxButtonTheme}"
                     HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
-                    Command="{Binding CloseViewComand}">
+                    Command="{Binding CloseViewCommand}">
             </Button>
 
             <ContentControl Grid.Row="1" Grid.Column="1"

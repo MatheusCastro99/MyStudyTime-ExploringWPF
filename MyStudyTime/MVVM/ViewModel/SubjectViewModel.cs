@@ -1,4 +1,6 @@
 ﻿using MyStudyTime.Core;
+using MyStudyTime.MVVM.Model;
+using MyStudyTime.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,46 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows;
+using System.Diagnostics;
 
 namespace MyStudyTime.MVVM.ViewModel
 {
-    public class Subject : ObservableObject
-    {
-        private string _name;
-        private string _newNote;
-
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string NewNote
-        {
-            get { return _newNote; }
-            set
-            {
-                _newNote = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<string> Notes { get; set; }
-
-        public Subject(string name)
-        {
-            Name = name;
-            Notes = new ObservableCollection<string>();
-        }
-    }
-
     internal class SubjectViewModel : ObservableObject
     {
         private string _newSubject;
+        private IDataService _dataService;
 
         public string NewSubject
         {
@@ -65,9 +35,18 @@ namespace MyStudyTime.MVVM.ViewModel
         public ICommand RemoveSubjectCommand { get; set; }
         public ICommand OpenNoteWindowCommand { get; set; }
 
-        public SubjectViewModel()
+        public SubjectViewModel(IDataService dataService)
         {
-            Subjects = new ObservableCollection<Subject>
+            _dataService = dataService;
+            Debug.WriteLine("SubjectViewModel: Constructor called");
+            Subjects = _dataService.LoadSubjects();
+            Debug.WriteLine($"SubjectViewModel: Loaded {Subjects.Count} subjects");
+
+            // If no subjects exist, initialize with defaults
+            if (Subjects.Count == 0)
+            {
+                Debug.WriteLine("SubjectViewModel: Creating default subjects");
+                var defaults = new List<Subject>
                 {
                     new Subject("Math"),
                     new Subject("English"),
@@ -75,12 +54,20 @@ namespace MyStudyTime.MVVM.ViewModel
                     new Subject("History"),
                     new Subject("Chemistry")
                 };
+                foreach (var subject in defaults)
+                {
+                    Subjects.Add(subject);
+                }
+                _dataService.SaveSubjects(Subjects);
+                Debug.WriteLine("SubjectViewModel: Default subjects saved");
+            }
 
             AddSubjectCommand = new RelayCommand(o =>
             {
                 if (!string.IsNullOrWhiteSpace(NewSubject))
                 {
                     Subjects.Add(new Subject(NewSubject));
+                    _dataService.SaveSubjects(Subjects);
                     NewSubject = string.Empty;
                 }
             });
@@ -90,6 +77,7 @@ namespace MyStudyTime.MVVM.ViewModel
                 if (o is Subject subject && Subjects.Contains(subject))
                 {
                     Subjects.Remove(subject);
+                    _dataService.SaveSubjects(Subjects);
                 }
             });
 
@@ -99,7 +87,7 @@ namespace MyStudyTime.MVVM.ViewModel
                 {
                     var noteWindow = new MyStudyTime.MVVM.View.NoteWindow
                     {
-                        DataContext = new NoteWindowViewModel(subject)
+                        DataContext = new NoteWindowViewModel(subject, _dataService)
                     };
                     noteWindow.Show();
                 }

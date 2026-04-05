@@ -20,8 +20,9 @@
             <DataTemplate DataType="{x:Type viewModel:SubjectViewModel}">
                 <view:SubjectView/>
             </DataTemplate>
-            
-        </ResourceDictionary>
 
+            <FontFamily x:Key="FontAwesomeSolid">/Fonts/#Font Awesome 6 Free Solid </FontFamily>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
