@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:MyStudyTime"
              xmlns:viewModel="clr-namespace:MyStudyTime.MVVM.ViewModel"
              xmlns:view="clr-namespace:MyStudyTime.MVVM.View"
+             xmlns:core="clr-namespace:MyStudyTime.Core"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,12 +14,23 @@
                 <ResourceDictionary Source="Theme/CloseMinMaxButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- Converters -->
+            <core:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <core:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+            <core:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <core:BoolToColorConverter x:Key="BoolToColorConverter"/>
+
+            <!-- Data Templates -->
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:SubjectViewModel}">
                 <view:SubjectView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:FlashCardViewModel}">
+                <view:FlashCardView/>
             </DataTemplate>
 
             <FontFamily x:Key="FontAwesomeSolid">/Fonts/#Font Awesome 6 Free Solid </FontFamily>

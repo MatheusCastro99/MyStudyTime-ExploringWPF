@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows;
-using System.Diagnostics;
 
 namespace MyStudyTime.MVVM.ViewModel
 {
@@ -34,18 +33,16 @@ namespace MyStudyTime.MVVM.ViewModel
         public ICommand AddSubjectCommand { get; set; }
         public ICommand RemoveSubjectCommand { get; set; }
         public ICommand OpenNoteWindowCommand { get; set; }
+        public ICommand OpenFlashCardWindowCommand { get; set; }
 
         public SubjectViewModel(IDataService dataService)
         {
             _dataService = dataService;
-            Debug.WriteLine("SubjectViewModel: Constructor called");
             Subjects = _dataService.LoadSubjects();
-            Debug.WriteLine($"SubjectViewModel: Loaded {Subjects.Count} subjects");
 
             // If no subjects exist, initialize with defaults
             if (Subjects.Count == 0)
             {
-                Debug.WriteLine("SubjectViewModel: Creating default subjects");
                 var defaults = new List<Subject>
                 {
                     new Subject("Math"),
@@ -59,7 +56,6 @@ namespace MyStudyTime.MVVM.ViewModel
                     Subjects.Add(subject);
                 }
                 _dataService.SaveSubjects(Subjects);
-                Debug.WriteLine("SubjectViewModel: Default subjects saved");
             }
 
             AddSubjectCommand = new RelayCommand(o =>
@@ -87,9 +83,28 @@ namespace MyStudyTime.MVVM.ViewModel
                 {
                     var noteWindow = new MyStudyTime.MVVM.View.NoteWindow
                     {
-                        DataContext = new NoteWindowViewModel(subject, _dataService)
+                        DataContext = new NoteWindowViewModel(subject, Subjects, _dataService)
                     };
                     noteWindow.Show();
+                }
+            });
+
+            OpenFlashCardWindowCommand = new RelayCommand(o =>
+            {
+                if (o is Subject subject)
+                {
+                    var flashCardWindow = new Window
+                    {
+                        Title = $"Flash Cards - {subject.Name}",
+                        Height = 600,
+                        Width = 900,
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                        DataContext = new FlashCardViewModel(subject, Subjects, _dataService)
+                    };
+
+                    var flashCardView = new MyStudyTime.MVVM.View.FlashCardView();
+                    flashCardWindow.Content = flashCardView;
+                    flashCardWindow.Show();
                 }
             });
         }

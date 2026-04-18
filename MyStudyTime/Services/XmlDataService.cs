@@ -12,7 +12,6 @@ namespace MyStudyTime.Services
         private readonly string _subjectsFilePath;
         private readonly string _flashCardsFilePath;
         private readonly string _studyGoalsFilePath;
-        private readonly string _logFilePath;
 
         public XmlDataService()
         {
@@ -30,18 +29,6 @@ namespace MyStudyTime.Services
             _subjectsFilePath = Path.Combine(_dataDirectory, "subjects.xml");
             _flashCardsFilePath = Path.Combine(_dataDirectory, "flashcards.xml");
             _studyGoalsFilePath = Path.Combine(_dataDirectory, "studygoals.xml");
-            _logFilePath = Path.Combine(_dataDirectory, "debug.log");
-
-            Log($"XmlDataService initialized. Data directory: {_dataDirectory}");
-        }
-
-        private void Log(string message)
-        {
-            try
-            {
-                File.AppendAllText(_logFilePath, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} - {message}{Environment.NewLine}");
-            }
-            catch { }
         }
 
         // ==================== Subjects ====================
@@ -51,7 +38,6 @@ namespace MyStudyTime.Services
 
             try
             {
-                Log($"LoadSubjects called. File exists: {File.Exists(_subjectsFilePath)}");
                 if (File.Exists(_subjectsFilePath))
                 {
                     var serializer = new XmlSerializer(typeof(SubjectsContainer));
@@ -60,7 +46,6 @@ namespace MyStudyTime.Services
                         var container = serializer.Deserialize(reader) as SubjectsContainer;
                         if (container?.Subjects != null)
                         {
-                            Log($"Loaded {container.Subjects.Count} subjects from file");
                             foreach (var subject in container.Subjects)
                             {
                                 subjects.Add(subject);
@@ -68,18 +53,12 @@ namespace MyStudyTime.Services
                         }
                     }
                 }
-                else
-                {
-                    Log("Subjects file does not exist, returning empty collection");
-                }
             }
             catch (Exception ex)
             {
-                Log($"Error loading subjects: {ex.Message} | {ex.StackTrace}");
                 System.Diagnostics.Debug.WriteLine($"Error loading subjects: {ex.Message}");
             }
 
-            Log($"LoadSubjects returning {subjects.Count} subjects");
             return subjects;
         }
 
@@ -87,19 +66,16 @@ namespace MyStudyTime.Services
         {
             try
             {
-                Log($"SaveSubjects called with {subjects.Count} subjects");
                 var container = new SubjectsContainer { Subjects = new System.Collections.Generic.List<Subject>(subjects) };
                 var serializer = new XmlSerializer(typeof(SubjectsContainer));
 
                 using (var writer = new StreamWriter(_subjectsFilePath))
                 {
                     serializer.Serialize(writer, container);
-                    Log($"Successfully saved {subjects.Count} subjects to {_subjectsFilePath}");
                 }
             }
             catch (Exception ex)
             {
-                Log($"Error saving subjects: {ex.Message} | {ex.StackTrace}");
                 System.Diagnostics.Debug.WriteLine($"Error saving subjects: {ex.Message}");
             }
         }

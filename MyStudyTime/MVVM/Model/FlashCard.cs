@@ -12,24 +12,38 @@ namespace MyStudyTime.MVVM.Model
 
     public class FlashCard
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public int Id { get; set; }
+        public int SubjectId { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-        public Difficulty Difficulty { get; set; } = Difficulty.Medium;
-        public List<string> Tags { get; set; } = new List<string>();
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime LastReviewDate { get; set; }
-        public int ReviewCount { get; set; } = 0;
-        public string ParentSubjectId { get; set; } // For subject-scoped organization
+        public Difficulty Difficulty { get; set; }
+        public string Tags { get; set; }
+        public int ReviewCount { get; set; }
+        public bool GotRight { get; set; }
+        public DateTime? LastReviewDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+        // Navigation property for EF6
+        public virtual Subject Subject { get; set; }
 
         public FlashCard()
         {
+            Difficulty = Difficulty.Medium;
+            Tags = string.Empty;
+            ReviewCount = 0;
+            GotRight = false;
+            CreatedDate = DateTime.Now;
         }
 
         public FlashCard(string question, string answer)
         {
             Question = question;
             Answer = answer;
+            Difficulty = Difficulty.Medium;
+            Tags = string.Empty;
+            ReviewCount = 0;
+            GotRight = false;
+            CreatedDate = DateTime.Now;
         }
     }
 }

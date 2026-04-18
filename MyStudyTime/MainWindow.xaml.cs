@@ -31,8 +31,22 @@ namespace MyStudyTime
         {
             base.OnContentRendered(e);
 
-            // Initialize services here when window is fully loaded
-            IDataService dataService = new XmlDataService();
+            // Try to use EF6DataService, but fall back to XmlDataService if database isn't available
+            IDataService dataService;
+            try
+            {
+                dataService = new EF6DataService();
+                // Test the connection
+                var testLoad = dataService.LoadSubjects();
+                System.Diagnostics.Debug.WriteLine("✓ Using EF6DataService for data persistence");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠ EF6DataService unavailable ({ex.Message}), falling back to XmlDataService");
+                System.Diagnostics.Debug.WriteLine("  Note: LocalDB may not be installed. Install SQL Server LocalDB to enable database persistence.");
+                dataService = new XmlDataService();
+            }
+
             MainViewModel viewModel = new MainViewModel(dataService);
             this.DataContext = viewModel;
 

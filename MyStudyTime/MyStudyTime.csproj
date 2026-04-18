@@ -61,19 +61,22 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MVVM\ViewModel\NoteWindowViewModel.cs" />
-    <Compile Include="MVVM\View\NoteWindow.xaml.cs">
-      <DependentUpon>NoteWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +104,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\FlashCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FlashCardReviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\CloseMinMaxButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,12 +130,18 @@
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SubjectViewModel.cs" />
     <Compile Include="MVVM\ViewModel\NoteWindowViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\FlashCardViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\FlashCardReviewViewModel.cs" />
     <Compile Include="MVVM\Model\Subject.cs" />
     <Compile Include="MVVM\Model\Note.cs" />
     <Compile Include="MVVM\Model\FlashCard.cs" />
     <Compile Include="MVVM\Model\StudyGoal.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\XmlDataService.cs" />
+    <Compile Include="Services\EF6DataService.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Database\StudyTimeDbContext.cs" />
+    <Compile Include="Core\Converters.cs" />
     <Compile Include="MVVM\View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +150,12 @@
     </Compile>
     <Compile Include="MVVM\View\NoteWindow.xaml.cs">
       <DependentUpon>NoteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FlashCardView.xaml.cs">
+      <DependentUpon>FlashCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FlashCardReviewWindow.xaml.cs">
+      <DependentUpon>FlashCardReviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

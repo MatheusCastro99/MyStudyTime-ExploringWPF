@@ -2,9 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Notes" 
-        Height="300" Width="400"
+        Height="600" Width="600"
         Background="LightGoldenrodYellow">
-    <StackPanel Margin="10">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="{Binding SubjectName}" FontSize="20" Margin="0,0,0,10"/>
             <TextBlock Text="Notes" FontSize="20" Margin="5,0,0,10"/>
@@ -75,5 +76,6 @@
                 </Style>
             </Button.Resources>
         </Button>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

@@ -51,6 +51,19 @@
                                     </Style>
                                 </Button.Resources>
                             </Button>
+                            <Button Content="Flash Cards"
+                                    Width="75"
+                                    Command="{Binding DataContext.OpenFlashCardWindowCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Background="transparent"
+                                    Foreground="White"
+                                    Margin="0, 3, 0, 0">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
                             <Button Content="Remove"
                                     Width="75"
                                     Command="{Binding DataContext.RemoveSubjectCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"

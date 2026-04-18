@@ -19,6 +19,7 @@ namespace MyStudyTime.MVVM.ViewModel
         private Subject _subject;
         private IDataService _dataService;
         private ObservableCollection<Subject> _allSubjects;
+        private ObservableCollection<Note> _notesObservable;
 
         public string SubjectName => _subject.Name;
 
@@ -42,37 +43,43 @@ namespace MyStudyTime.MVVM.ViewModel
             }
         }
 
-        public ObservableCollection<Note> Notes => _subject.Notes;
+        public ObservableCollection<Note> Notes
+        {
+            get
+            {
+                if (_notesObservable == null)
+                {
+                    _notesObservable = new ObservableCollection<Note>(_subject.Notes);
+                }
+                return _notesObservable;
+            }
+        }
 
         public ICommand AddNoteCommand { get; set; }
         public ICommand RemoveNoteCommand { get; set; }
 
-        public NoteWindowViewModel(Subject subject, IDataService dataService)
+        public NoteWindowViewModel(Subject subject, ObservableCollection<Subject> allSubjects, IDataService dataService)
         {
             _subject = subject;
+            _allSubjects = allSubjects;
             _dataService = dataService;
+            _notesObservable = new ObservableCollection<Note>(_subject.Notes);
 
             AddNoteCommand = new RelayCommand(o =>
             {
                 if (!string.IsNullOrWhiteSpace(NewNote))
                 {
-                    var note = new Note(NewNote);
-
-                    // Parse tags from comma-separated input
-                    if (!string.IsNullOrWhiteSpace(NewTags))
+                    var note = new Note(NewNote)
                     {
-                        var tags = NewTags.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
-                        foreach (var tag in tags)
-                        {
-                            note.Tags.Add(tag.Trim());
-                        }
-                    }
+                        SubjectId = _subject.Id,
+                        Tags = NewTags ?? string.Empty
+                    };
 
-                    Notes.Add(note);
+                    _subject.Notes.Add(note);
+                    _notesObservable.Add(note);
 
                     // Save to data service
-                    var allSubjects = _dataService.LoadSubjects();
-                    _dataService.SaveSubjects(allSubjects);
+                    _dataService.SaveSubjects(_allSubjects);
 
                     NewNote = string.Empty;
                     NewTags = string.Empty;
@@ -81,13 +88,13 @@ namespace MyStudyTime.MVVM.ViewModel
 
             RemoveNoteCommand = new RelayCommand(o =>
             {
-                if (o is Note note && Notes.Contains(note))
+                if (o is Note note && _notesObservable.Contains(note))
                 {
-                    Notes.Remove(note);
+                    _subject.Notes.Remove(note);
+                    _notesObservable.Remove(note);
 
                     // Save to data service
-                    var allSubjects = _dataService.LoadSubjects();
-                    _dataService.SaveSubjects(allSubjects);
+                    _dataService.SaveSubjects(_allSubjects);
                 }
             });
         }

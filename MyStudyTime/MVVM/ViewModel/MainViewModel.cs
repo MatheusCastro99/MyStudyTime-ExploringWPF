@@ -41,11 +41,8 @@ namespace MyStudyTime.MVVM.ViewModel
 
         public MainViewModel(IDataService dataService)
         {
-            System.Diagnostics.Debug.WriteLine("MainViewModel: Constructor called");
             HomeVm = new HomeViewModel(dataService);
-            System.Diagnostics.Debug.WriteLine("MainViewModel: HomeViewModel created");
             SubjectVm = new SubjectViewModel(dataService);
-            System.Diagnostics.Debug.WriteLine("MainViewModel: SubjectViewModel created");
             CurrentView = HomeVm;
 
             HomeViewCommand = new RelayCommand(o =>
