@@ -1,0 +1,104 @@
+<Window x:Class="MyStudyTime.MVVM.View.FlashCardReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Flash Card Review"
+        Height="500"
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#f5f5f5"
+        d:DesignHeight="500"
+        d:DesignWidth="700">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <StackPanel Margin="20">
+                <TextBlock Text="{Binding CurrentIndex, StringFormat='Card {0}'}"/>
+                <TextBlock Text="{Binding TotalCards, StringFormat='Total: {0}'}"
+                        Margin="0,5,0,0"/>
+                <ProgressBar Value="{Binding ProgressPercentage}"
+                        Height="10"
+                        Margin="0,10,0,0"/>
+
+                <Border Background="White"
+                        BorderBrush="#3498db"
+                        BorderThickness="2"
+                        Margin="0,20,0,0">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Question:"
+                                FontSize="12"
+                                Foreground="#666"/>
+                        <TextBlock Text="{Binding CurrentCard.Question}"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                TextWrapping="Wrap"
+                                Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#ecf0f1"
+                        BorderBrush="#27ae60"
+                        BorderThickness="2"
+                        Margin="0,10,0,0">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Answer:"
+                                FontSize="12"
+                                Foreground="#666"/>
+                        <TextBlock Text="{Binding CurrentCard.Answer}"
+                                FontSize="16"
+                                TextWrapping="Wrap"
+                                Margin="0,5,0,0"
+                                Visibility="{Binding IsAnswerRevealed, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <TextBlock Text="(Click 'Reveal' to see answer)"
+                                Foreground="#999"
+                                Visibility="{Binding IsAnswerRevealed, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Orientation="Horizontal"
+                        Margin="0,20,0,0">
+                    <Button Command="{Binding RevealAnswerCommand}"
+                            Background="#3498db"
+                            Foreground="White"
+                            Padding="10"
+                            Margin="0,0,10,0"
+                            IsEnabled="{Binding IsAnswerRevealed, Converter={StaticResource InverseBoolConverter}}">
+                        Reveal Answer
+                    </Button>
+                    <Button Command="{Binding MarkCorrectCommand}"
+                            Background="#27ae60"
+                            Foreground="White"
+                            Padding="10"
+                            Margin="0,0,10,0"
+                            IsEnabled="{Binding IsAnswerRevealed}">
+                        ✓ Correct
+                    </Button>
+                    <Button Command="{Binding MarkIncorrectCommand}"
+                            Background="#e74c3c"
+                            Foreground="White"
+                            Padding="10"
+                            Margin="0,0,10,0"
+                            IsEnabled="{Binding IsAnswerRevealed}">
+                        ✗ Incorrect
+                    </Button>
+                    <Button Command="{Binding EndReviewCommand}"
+                            Background="#95a5a6"
+                            Foreground="White"
+                            Padding="10">
+                        End Session
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                        Margin="0,15,0,0">
+                    <TextBlock Text="{Binding CorrectCount, StringFormat='✓ Correct: {0}'}"
+                            Foreground="#27ae60"
+                            Margin="0,0,20,0"/>
+                    <TextBlock Text="{Binding IncorrectCount, StringFormat='✗ Incorrect: {0}'}"
+                            Foreground="#e74c3c"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

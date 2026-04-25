@@ -1,0 +1,187 @@
+# ==========================================
+# .NET Build Outputs
+# ==========================================
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.so
+*.dylib
+*.su
+*.o
+*.a
+*.la
+*.lai
+
+# ==========================================
+# Visual Studio / IDE Outputs
+# ==========================================
+.vs/
+.vscode/
+.idea/
+.rider/
+*.user
+*.suo
+*.sln.iml
+*.swp
+*.swo
+*~
+*.bak
+*~.tmp
+
+# ==========================================
+# NuGet Package Management
+# ==========================================
+packages/
+.nuget/
+*.nupkg
+*.snupkg
+.nuget/packages/
+*.nuget.props
+*.nuget.targets
+
+# ==========================================
+# Entity Framework / Database
+# ==========================================
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+Migrations/
+
+# ==========================================
+# Testing & Code Coverage
+# ==========================================
+TestResults/
+coverage.json
+OpenCover/
+CodeCoverage/
+*.trx
+*.coverage
+*.coveragexml
+
+# ==========================================
+# Build Artifacts
+# ==========================================
+artifacts/
+.artifacts/
+dist/
+release/
+publish/
+_PublishedWebsites/
+*.cer
+
+# ==========================================
+# Environment & Configuration
+# ==========================================
+.env
+.env.local
+.env.*.local
+appsettings.Development.json
+appsettings.Production.json
+launchSettings.json
+
+# ==========================================
+# Logs
+# ==========================================
+*.log
+logs/
+debug_log.txt
+build_output.txt
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# Operating System Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ==========================================
+# IDE Extensions & Settings
+# ==========================================
+.vscode/extensions/
+.vscode/*.log
+.vscode/tasks.json.bak
+.idea/
+.classpath
+.c9/
+*.sublime-workspace
+
+# ==========================================
+# ReSharper / JetBrains Rider
+# ==========================================
+.idea/
+*.sln.iml
+.ReSharper
+.ReSharper*/
+_ReSharper*/
+_ReSharper.*/
+riderModule.iml
+
+# ==========================================
+# Windows & macOS
+# ==========================================
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+.TemporaryItems
+.VolumeIcon.icns
+
+# ==========================================
+# Visual Studio Cache/Options
+# ==========================================
+.vs/
+.vscode/settings.json
+.vscode/launch.json.user
+[Bb]uild/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# ==========================================
+# Application-Specific
+# ==========================================
+# XML data store fallback files (local development only)
+%APPDATA%/MyStudyTime/
+*.xml.backup
+*.xml.tmp
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+.npm/
+yarn.lock
+package-lock.json
+
+# ==========================================
+# Miscellaneous
+# ==========================================
+*.tmp
+*.temp
+*.cache
+.cache/
+.temp/
+
+

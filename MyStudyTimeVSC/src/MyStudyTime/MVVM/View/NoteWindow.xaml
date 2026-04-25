@@ -1,0 +1,108 @@
+<Window x:Class="MyStudyTime.MVVM.View.NoteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Notes"
+        Height="600"
+        Width="600"
+        Background="LightGoldenrodYellow">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10">
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding SubjectName}"
+                        FontSize="20"
+                        Margin="0,0,0,10"/>
+                <TextBlock Text="Notes"
+                        FontSize="20"
+                        Margin="5,0,0,10"/>
+            </WrapPanel>
+            <ItemsControl ItemsSource="{Binding Notes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,5,0,5"
+                                Background="White"
+                                Padding="10"
+                                BorderBrush="LightGray"
+                                BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Content}"
+                                        Margin="0,0,0,5"
+                                        TextWrapping="Wrap"
+                                        FontSize="14"
+                                        FontWeight="Bold"/>
+                                <TextBlock Text="{Binding CreatedDate, StringFormat='Created: {0:g}'}"
+                                        Margin="0,0,0,3"
+                                        TextWrapping="Wrap"
+                                        FontSize="11"
+                                        Foreground="Gray"/>
+                                <TextBlock Text="{Binding Tags}"
+                                        Margin="0,0,0,5"
+                                        TextWrapping="Wrap"
+                                        FontSize="11"
+                                        Foreground="DarkBlue"/>
+                                <Button Content="Delete"
+                                        Command="{Binding DataContext.RemoveNoteCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        HorizontalAlignment="Left"
+                                        Margin="0, 5, 0, 0"
+                                        Height="25"
+                                        Width="60"
+                                        Background="#f2d561"
+                                        BorderThickness="0"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Note Content:"
+                            Margin="0,5,0,2"
+                            FontSize="12"/>
+                    <TextBox Text="{Binding NewNote, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,0"
+                             HorizontalAlignment="Left"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="LightGray"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             MaxWidth="350"
+                             MinWidth="350"
+                             Height="50"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1"
+                        Margin="0,10,0,0">
+                    <TextBlock Text="Tags (comma-separated):"
+                            Margin="0,5,0,2"
+                            FontSize="12"/>
+                    <TextBox Text="{Binding NewTags, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,0,0,0"
+                             HorizontalAlignment="Left"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="LightGray"
+                             MaxWidth="350"
+                             MinWidth="350"
+                             Height="25"/>
+                </StackPanel>
+            </Grid>
+            <Button Content="Add Note"
+                    Command="{Binding AddNoteCommand}"
+                    Margin="0,10,0,0"
+                    Width="100"
+                    Background="#f2d561"
+                    BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius"
+                                Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
