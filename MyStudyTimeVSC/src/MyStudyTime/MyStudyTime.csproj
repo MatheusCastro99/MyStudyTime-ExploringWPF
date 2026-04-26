@@ -39,8 +39,8 @@
 
   <!-- XAML Resource Files -->
   <ItemGroup>
-    <EmbeddedResource Include="Fonts/**/*" />
-    <EmbeddedResource Include="Images/**/*" />
+    <Resource Include="Assets/Fonts/**/*" />
+    <Resource Include="Assets/Images/**/*" />
   </ItemGroup>
 
 </Project>

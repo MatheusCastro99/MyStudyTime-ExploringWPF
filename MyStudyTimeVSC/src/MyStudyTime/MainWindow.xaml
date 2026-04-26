@@ -74,13 +74,15 @@
 
             <Button Grid.Column="1"
                     Style="{StaticResource CloseMinMaxButtonTheme}"
+                    Height="40"
+                    Width="40"
                     HorizontalAlignment="Right"
-                    VerticalContentAlignment="Center"
+                    VerticalAlignment="Top"
                     Command="{Binding CloseViewCommand}">
             </Button>
 
             <ContentControl Grid.Row="1"
-                    Grid.Column="1"
+                            Grid.Column="1"
                             Margin="10"
                             Content="{Binding CurrentView}">
 

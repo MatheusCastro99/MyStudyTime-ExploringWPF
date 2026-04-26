@@ -13,7 +13,9 @@
                               Margin="0, 0, 15, 0">
                             <Image Width="25"
                                    Height="25"
-                                   Source="/power-button.png"/>
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Source="pack://application:,,,/Assets/Images/power-button.png"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
